@@ -3,7 +3,7 @@ REGISTRY=europe-docker.pkg.dev/absolute-surf-405213/k8s-k3s-demo
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
-
+IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-${TARGETOS}
 
 format:
 	gofmt -s -w ./
@@ -23,15 +23,15 @@ build: format get
 buildx: format get
 	docker buildx build --platform darwin/arm64,linux/amd64,windows/amd64 -t $(REGISTRY)/$(APP):$(VERSION) .
 
-
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}
+	docker build . -t ${IMAGE_TAG}
 
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}
+	docker push ${IMAGE_TAG}
 
 clean:
 	rm -rf kbot
+	docker rmi $(IMAGE_TAG)
 
 linux:
 	$(MAKE) build TARGETOS=linux TARGETARCH=amd64
