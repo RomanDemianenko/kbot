@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# 1. Install the script as an executable: chmod +x kubeplugin.
+# 2. Add the script to the directory that is included in the PATH environment variable. "export PATH=$PATH:scripts/
+# 3. After that, restart your shell or run source ~/.bashrc for the changes to take effect.
+# 4. Check Installation: After these steps, you can check if the plugin installation was successful using kubectl plugin list. Your new plugin should appear in the list.
+# 5. Call the plugin by command kubectl /path/kuberplugin <namespace> <resource> 
+
+
+# Checking for required arguments
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <namespace> <resource-type>"
+    exit 1
+fi
+
+NAMESPACE=$1
+RESOURCE_TYPE=$2
+
+# Retrieve resource usage statistics from Kubernetes
+kubectl get $RESOURCE_TYPE -n $NAMESPACE --no-headers | while read line
+do
+  # Extract CPU and memory usage from the output
+  NAME=$(echo $line | awk '{print $1}')
+  CPU=$(echo $line | awk '{print $2}')
+  MEMORY=$(echo $line | awk '{print $3}')
+
+  # Output the statistics to the console
+  echo "Resource: $RESOURCE_TYPE, Namespace: $NAMESPACE, Name: $NAME, CPU: $CPU, Memory: $MEMORY"
+done
