@@ -4,7 +4,7 @@
 # 2. Add the script to the directory that is included in the PATH environment variable. "export PATH=$PATH:scripts/
 # 3. After that, restart your shell or run source ~/.bashrc for the changes to take effect.
 # 4. Check Installation: After these steps, you can check if the plugin installation was successful using kubectl plugin list. Your new plugin should appear in the list.
-# 5. Call the plugin by command kubectl /path/kuberplugin <namespace> <resource> 
+# 5. Call the plugin by command kubectl /path/kubeplugin <namespace> <resource> 
 
 
 # Checking for required arguments
