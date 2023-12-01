@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: romandemianenko
-  tag: "v1.0.5-9770114"
+  tag: "v1.0.5-0879d12"
+  arch: amd64
 
 secret:
   name: "kbot"
