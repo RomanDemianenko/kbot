@@ -48,7 +48,8 @@ jobs:
     - run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/RomanDemianenko/kbot.git
         git commit -am "update version $VERSION"
-        git push --token ${{ secrets.GITHUB_TOKEN }}
+        git push
 
         
