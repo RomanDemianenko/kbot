@@ -1,9 +1,9 @@
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=europe-docker.pkg.dev/absolute-surf-405213/k8s-k3s-demo
+REGISTRY=romandemianenko
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
-IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-${TARGETOS}
+IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
 
 format:
 	gofmt -s -w ./
@@ -27,7 +27,7 @@ image:
 	docker build . -t ${IMAGE_TAG}
 
 push:
-	docker push ${IMAGE_TAG}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
 
 clean:
 	rm -rf kbot
