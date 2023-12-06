@@ -31,16 +31,17 @@ jobs:
           username: ${{ secrets.MY_GITHUB_USERNAME }}
           password: ${{ secrets.MY_GITHUB_TOKEN }}
       
-      - name: Build
+      - name: Build Image
         run: make image
 
-      - name: Push
+      - name: Login to GHCR
+        run: echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.MY_GITHUB_USERNAME }} --password-stdin
+
+      - name: Push Image
         env:
           APP: "kbot"
           REGISTRY: ghcr.io/${{ secrets.MY_GITHUB_USERNAME }}
-        run: echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.MY_GITHUB_USERNAME }} --password-stdin |
-          make push
-  
+        run: make push
   
   cd:
     name: Kbot CD
