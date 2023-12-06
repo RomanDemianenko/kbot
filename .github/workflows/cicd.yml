@@ -30,7 +30,11 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.MY_GITHUB_USERNAME }}
           password: ${{ secrets.MY_GITHUB_TOKEN }}
-        
+      
+      - name: Docker login
+        run: echo "${{ secrets.MY_GITHUB_TOKEN }}" | 
+          docker login ghcr.io -u $ --password-stdin |
+
       - name: Build&Push
         env:
           APP: "kbot"
