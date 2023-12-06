@@ -3,14 +3,15 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+
 image:
-  repository: ghcr.io/romandemianenko/kbot
-  pullPolicy: IfNotPresent
+  repository: romandemianenko
   tag: v1.0.6-6395caa
   arch: amd64
+
 secret:
-  name: "kbot"
-  tokenKey: "token"
-  tokenName: "TELE_TOKEN"
+  name: TELE_TOKEN
+  tokenKey: token
+  tokenName: kbot
 securityContext:
   privileged: true

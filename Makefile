@@ -1,9 +1,9 @@
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=ghcr.io/romandemianenko
+REGISTRY=gcr.io/absolute-surf-405213/k8s-k3s/
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
-IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-$(TARGETOS)-${TARGETARCH}
 
 format:
 	gofmt -s -w ./
