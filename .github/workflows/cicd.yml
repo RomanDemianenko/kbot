@@ -8,6 +8,7 @@ permissions:
 jobs:
   ci:
     name: CI
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
