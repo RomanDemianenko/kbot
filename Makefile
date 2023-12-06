@@ -3,7 +3,7 @@ REGISTRY=gcr.io/absolute-surf-405213/k8s-k3s/
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
-IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-$(TARGETOS)-${TARGETARCH}
+IMAGE_TAG=${REGISTRY}${APP}:${VERSION}-$(TARGETOS)-${TARGETARCH}
 
 format:
 	gofmt -s -w ./
@@ -21,7 +21,7 @@ build: format get
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/RomanDemianenko/kbot/cmd.appVersion=${VERSION}
 
 buildx: format get
-	docker buildx build --platform darwin/arm64,linux/amd64,windows/amd64 -t $(REGISTRY)/$(APP):$(VERSION) .
+	docker buildx build --platform darwin/arm64,linux/amd64,windows/amd64 -t $(REGISTRY)$(APP):$(VERSION) .
 
 image:
 	docker build . -t ${IMAGE_TAG}
