@@ -26,20 +26,22 @@ jobs:
 
       - name: GHCR login
         uses: docker/login-action@v2
-        permissions:
-          packages: write
-          contents: read
         with:
           registry: ghcr.io
           username: ${{ secrets.MY_GITHUB_USERNAME }}
           password: ${{ secrets.MY_GITHUB_TOKEN }}
-        
-      - name: Build&Push
+      
+      - name: Build Image
+        run: make image
+
+      - name: Login to GHCR
+        run: echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.MY_GITHUB_USERNAME }} --password-stdin
+
+      - name: Push Image
         env:
           APP: "kbot"
           REGISTRY: ghcr.io/${{ secrets.MY_GITHUB_USERNAME }}
-        run: make image push
-  
+        run: make push
   
   cd:
     name: Kbot CD
