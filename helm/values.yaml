@@ -4,8 +4,9 @@
 
 replicaCount: 1
 image:
-  repository: romandemianenko
-  tag: "v1.0.6-1234d15"
+  repository: ghcr.io/romandemianenko/kbot
+  pullPolicy: IfNotPresent
+  tag: v1.0.6-6395caa
   arch: amd64
 secret:
   name: "kbot"
