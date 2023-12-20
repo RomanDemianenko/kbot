@@ -1,6 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=romandemianenko/
-Secret=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
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
