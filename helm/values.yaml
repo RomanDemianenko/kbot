@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: romandemianenko
-  tag: v1.0.6-7d97d00
+  tag: v1.0.6-180fd64
   os: linux
   arch: amd64
 secret:
