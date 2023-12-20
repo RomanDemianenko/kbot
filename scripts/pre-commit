@@ -7,27 +7,32 @@ if [ "$(git config --get hooks.gitleaksenabled)" != "true" ]; then
      exit 0
 fi
 
-# Definition of the operating system
+# Define the operating system
 OS="`uname`"
 case $OS in
-   'Linux')
-     OS='Linux'
-     alias download='wget -O -'
-     ;;
-   'Darwin')
-     OS='Mac'
-     alias download='curl -L'
-     ;;
-   *)
-     echo "Unsupported operating system: $OS"
-     exit 1
-     ;;
+    'Linux' | 'Darwin')
+        OS='Linux/Mac'
+        ;;
+    'MINGW'* | 'CYGWIN'* | 'MSYS'*)
+        OS='Windows'
+        ;;
+    *)
+        OS='Unknown'
+        ;;
 esac
 
 # Checking for gitleaks
 if ! command -v gitleaks >/dev/null 2>&1; then
-     echo "Gitleaks is not installed. Attempting automatic installation..."
-     download https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh
+    echo "Gitleaks is not installed. Attempting automatic installation..."
+    if [ "$OS" = "Linux/Mac" ]; then
+        go install github.com/zricethezav/gitleaks/v8@latest
+    elif [ "$OS" = "Windows" ]; then
+        echo "Please install Gitleaks manually on Windows."
+        exit 1
+    else
+        echo "Unsupported OS for automatic installation."
+        exit 1
+    fi
 fi
 
 # Start gitleaks
