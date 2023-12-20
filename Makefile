@@ -1,6 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=romandemianenko/
-TELEBOT = 6689052259:AAGMbM_kW5dQ8sXlXhwYhmtMEx88CSSGucw
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS ?= linux
 TARGETARCH ?= amd64
