@@ -31,10 +31,11 @@ if ! command -v gitleaks >/dev/null 2>&1; then
 fi
 
 # Start gitleaks
-gitleaks detect --source-path="." --config-path=".gitleaks.toml"
-if [ $? - not 0 ]; then
+gitleaks detect --source="." --config-path=".gitleaks.toml"
+if [ $? -ne 0 ]; then
      echo "Gitleaks discovered potential secrets. Commit aborted."
      exit 1
 fi
+
 echo "Everything is fine"
 exit 0
