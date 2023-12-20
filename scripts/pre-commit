@@ -27,8 +27,11 @@ if ! command -v gitleaks >/dev/null 2>&1; then
     if [ "$OS" = "Linux/Mac" ]; then
         go install github.com/zricethezav/gitleaks/v8@latest
     elif [ "$OS" = "Windows" ]; then
-        echo "Please install Gitleaks manually on Windows."
-        exit 1
+        echo "Attempting to install Gitleaks on Windows..."
+        curl -L https://github.com/zricethezav/gitleaks/releases/download/v8.2.7/gitleaks_8.2.7_windows_x64.zip -o gitleaks.zip
+        unzip gitleaks.zip gitleaks.exe
+        mv gitleaks.exe /usr/local/bin
+        rm gitleaks.zip
     else
         echo "Unsupported OS for automatic installation."
         exit 1
