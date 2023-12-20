@@ -1,0 +1,42 @@
+title = "gitleaks config"
+
+[[rules]]
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "AWS Secret Key"
+regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "GitHub"
+regex = '''(?i)github(.{0,20})?(?-i)['\"][0-9a-zA-Z]{35,40}['\"]'''
+tags = ["key", "GitHub"]
+
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)api_key(.{0,20})?(?-i)['\"][0-9a-zA-Z]{20,40}['\"]'''
+tags = ["key", "API"]
+
+[[rules]]
+description = "Generic Secret"
+regex = '''(?i)secret(.{0,20})?(?-i)['\"][0-9a-zA-Z]{20,40}['\"]'''
+tags = ["key", "Secret"]
+
+[[rules]]
+description = "Telegram Bot Token"
+regex = '''[0-9]+:AA[0-9A-Za-z_-]{33}'''
+tags = ["key", "Telegram"]
+
+# Exclude certain files or directories
+[allowlist]
+description = "Allowed files and paths"
+files = [
+  '''(^|/)\.gitignore$''',
+  '''(^|/)README.md$'''
+]
+paths = [
+  '''node_modules/'''
+]
