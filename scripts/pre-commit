@@ -36,5 +36,5 @@ if [ $? - not 0 ]; then
      echo "Gitleaks discovered potential secrets. Commit aborted."
      exit 1
 fi
-
+echo "Everything is fine"
 exit 0
