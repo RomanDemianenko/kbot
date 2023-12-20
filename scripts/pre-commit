@@ -1,0 +1,40 @@
+#!/bin/sh
+
+echo "Launching pre-commit hook..."
+
+if [ "$(git config --get hooks.gitleaksenabled)" != "true" ]; then
+     echo "Gitleaks pre-commit hook is disabled."
+     exit 0
+fi
+
+# Definition of the operating system
+OS="`uname`"
+case $OS in
+   'Linux')
+     OS='Linux'
+     alias download='wget -O -'
+     ;;
+   'Darwin')
+     OS='Mac'
+     alias download='curl -L'
+     ;;
+   *)
+     echo "Unsupported operating system: $OS"
+     exit 1
+     ;;
+esac
+
+# Checking for gitleaks
+if ! command -v gitleaks >/dev/null 2>&1; then
+     echo "Gitleaks is not installed. Attempting automatic installation..."
+     download https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh
+fi
+
+# Start gitleaks
+gitleaks detect --source-path="." --config-path=".gitleaks.toml"
+if [ $? - not 0 ]; then
+     echo "Gitleaks discovered potential secrets. Commit aborted."
+     exit 1
+fi
+
+exit 0
