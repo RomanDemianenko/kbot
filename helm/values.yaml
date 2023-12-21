@@ -5,7 +5,8 @@
 replicaCount: 1
 image:
   repository: romandemianenko
-  tag: v1.0.6-3fa3537-linux-amd64
+  tag: v1.0.6-0c5e7b9
+  arch: amd64
 secret:
   name: TELE_TOKEN
   tokenKey: token
