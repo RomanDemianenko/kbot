@@ -14,5 +14,6 @@ export TELE_TOKEN=<TOKEN>
 cd otel/
 docker-compose up
 ```
-
+## Example of Dashboard
+![Alt text](image.png)
 
