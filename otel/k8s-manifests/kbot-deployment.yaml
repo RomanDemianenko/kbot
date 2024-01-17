@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kbot
+  name: kbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kbot
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../docker-compose.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kbot
+    spec:
+      containers:
+        - env:
+            - name: METRICS_HOST
+              value: collector:4317
+            - name: TELE_TOKEN
+              value: 6689052259:AAGMbM_kW5dQ8sXlXhwYhmtMEx88CSSGucw
+          image: romandemianenko/kbot:v1.0.0-otel
+          name: kbot
+          resources: {}
+      restartPolicy: Always
+status: {}
