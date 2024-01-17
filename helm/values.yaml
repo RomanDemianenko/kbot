@@ -5,8 +5,8 @@
 replicaCount: 1
 image:
   repository: romandemianenko
-  tag: kbot:v1.0.0-otel
-  
+  tag: v1.0.6-cff274b
+  arch: amd64
 secret:
   name: TELE_TOKEN
   tokenKey: token
